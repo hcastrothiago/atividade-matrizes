@@ -20,6 +20,25 @@ const PORT = process.env.PORT || 3000;
 
 const apiUrl = "http://127.0.0.1:5000"
 
+app.get('/', (req, res) => {
+    res.render('home')
+})
+
+app.post('/vetor', async (req, res) => {
+    const { i, j, isRandom } = req.body;
+
+    try {
+        const response = await axios.post(`${apiUrl}/vetor`, {
+            i: i,
+            j: j,
+            isRandom: isRandom,
+        });
+        res.status(200).json(response.data);
+    } catch (error) {
+        res.status(400).json({ error: "Erro ao gerar: " + error.message });
+    }
+});
+
 app.get('/transporta', (req, res) => {
     res.render('transporta')
 })
@@ -44,17 +63,16 @@ app.post('/produto', async (req, res) => {
 app.post('/transporta', async (req, res) => {
     const matriz = await req.body;
 
+    console.log(matriz['matriz']['vetor']);
     try {
         const response = await axios.post(`${apiUrl}/transporta`, {
-            matriz: matriz
+            matriz: matriz['matriz']['vetor']
         });
-        console.log('Matriz transportada:', response.data.transportada);
         res.status(200).json(response.data.transportada)
     } catch (error) {
         console.error('Erro ao transportar a matriz:', error);
     }
 })
-
 
 // Inicia o servidor
 app.listen(PORT, () => {

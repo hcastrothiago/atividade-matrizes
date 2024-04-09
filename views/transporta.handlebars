@@ -3,25 +3,25 @@
 
     <div class="mb-3">
         <label for="lenght">Digite a dimensão do vetor</label>
-        <input type="number" id="lenght" class="form-control">
     </div>
+
+    <div class="mb-3 row">
+        <input type="text" id="i" class="form-control" value="5">
+        <input type="text" id="j" class="form-control" value="7">
+    </div>
+    
     <div class="btn-group">
         <button class="btn" id="generate">gerar</button>
-        <input type="checkbox" name="random" id="random">
+        <input type="checkbox" name="random" id="random" checked>
         <label for="random">Gerar números aleatórios</label>
+        <button class="btn d-none" id="btn-gerar-transporta">Gerar Matriz transporta</button>
     </div>
 
     <div class="row">
         <div class="mb-3 mt-3" id="result"></div>
-        <div class="d-none">
-            <img src="./arrow.svg" alt="">
+        <div class="d-none" id="arrow">
+            <img src="./arrow.svg" alt="flecha">
         </div>
         <div class="d-none mb-3 mt-3" id="result-transporta"></div>
     </div>
-    {{!-- <div class="btn-group">
-        <button class="btn">Gerar Matriz transporta</button>
-    </div> --}}
-    {{!-- <div class="d-none" id="transporta">
-        <div class="mb-3 mt-3 div-parenteses" id="result-transporta"> </div>
-    </div> --}}
 </div>

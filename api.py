@@ -40,6 +40,7 @@ def transporta():
     data = request.json
     # print(data)
     matriz = np.array(data.get('matriz'))
+    print(data['matriz'])
 
     transportada = matriz.transpose()
     return jsonify({'transportada': transportada.tolist()}), 200

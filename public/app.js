@@ -1,7 +1,9 @@
 const btnGenerateMatrix = document.getElementById("generate");
 const resultBox = document.getElementById('result')
 const row = document.getElementById('i'), column = document.getElementById('j')
-
+const btnGerarTransporta = document.getElementById("btn-gerar-transporta")
+const resultTransporta = document.getElementById("result-transporta")
+const urlServer = "http://localhost:3000"
 const randomicNumbers = document.getElementById('random')
 
 function createMatrix(row, column, parentEl, keyI, keyJ) {
@@ -35,13 +37,15 @@ function fillMatrix(parentEl, matrix, keyI, keyJ) {
     }
 }
 
+let tempArr = []
+
 btnGenerateMatrix.addEventListener('click', () => {
     resultBox.innerHTML = "";
     createMatrix(row.value, column.value, resultBox, "i", "j")
 
     resultBox.classList.add("div-parenteses")
 
-    fetch("http://localhost:3000/vetor", {
+    fetch(`${urlServer}/vetor`, {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ i: row.value, j: column.value, isRandom: randomicNumbers.checked })
@@ -49,5 +53,30 @@ btnGenerateMatrix.addEventListener('click', () => {
         .then(response => response.json())
         .then(data => {
             fillMatrix(resultBox, data.vetor, "i", "j")
+            btnGerarTransporta.classList.remove("d-none")
+            tempArr = data
+        })
+})
+
+btnGerarTransporta.addEventListener('click', () => {
+    document.getElementById("arrow").classList.remove("d-none")
+    resultTransporta.innerHTML = "";
+    resultTransporta.classList.add("div-parenteses")
+    resultTransporta.classList.remove("d-none")
+
+    fetch(`${urlServer}/transporta`, {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ matriz: tempArr })
+    }).then(response => response.json())
+        .then(data => {
+            const row = data.length;
+            const column = data[0].length;
+            createMatrix(row, column, resultTransporta, "ii", "jj")
+            // resultBox.classList.remove("div-parenteses")
+            // resultBox.classList.add("div-parenteses")
+            fillMatrix(resultTransporta, data, "ii", "jj")
+            // resultTransporta.classList.remove("div-parenteses")
+            // resultTransporta.classList.add("div-parenteses")
         })
 })

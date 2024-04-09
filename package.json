@@ -4,9 +4,8 @@
   "description": "Atividade de algebra linear, como parte da nota NP1",
   "main": "index.js",
   "scripts": {
-    "test": "cls & node --watch index.js",
-    "transporta": "cls & node --watch transporta.js",
-    "server": "cls & node --watch server.js"
+    "server": "cls & node --watch server.js",
+    "api": "cls & python ./api.py"
   },
   "keywords": [],
   "author": "",
