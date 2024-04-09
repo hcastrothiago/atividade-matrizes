@@ -1,90 +1,53 @@
 const btnGenerateMatrix = document.getElementById("generate");
 const resultBox = document.getElementById('result')
-const lenghtMatrix = document.getElementById('lenght')
+const row = document.getElementById('i'), column = document.getElementById('j')
+
 const randomicNumbers = document.getElementById('random')
 
-function createMatrix(dimension, parentEl, keyI, keyJ) {
-    const row = dimension, column = dimension
-
+function createMatrix(row, column, parentEl, keyI, keyJ) {
     for (let i = 0; i < row; i++) {
         const divRow = document.createElement('div')
         divRow.classList.add('row')
 
-        divRow.id = `i-${i}`
-        divRow.dataset.key = `i-${i}`;
+        divRow.id = `${keyI}-${i}`
+        divRow.dataset.key = `${keyI}-${i}`;
         parentEl.appendChild(divRow)
 
         for (let j = 0; j < column; j++) {
             const box = document.createElement('input')
             box.classList.add('box')
 
-            box.id = `j-${j}`
-            box.dataset.key = `j-${j}`;
+            box.id = `${keyJ}-${j}`
+            box.dataset.key = `${keyJ}-${j}`;
 
-            document.getElementById(`i-${i}`)
+            document.getElementById(`${keyI}-${i}`)
                 .appendChild(box)
         }
-
     }
 }
 
-
-function generateRandomMatrix(n, isRandom) {
-    const matrix = [];
-    for (let i = 0; i < n; i++) {
-        const row = [];
-        for (let j = 0; j < n; j++) {
-            if (isRandom == true) {
-                row.push(Math.floor(Math.random() * 11))
-            } else {
-                row.push(0)
-            }
+function fillMatrix(parentEl, matrix, keyI, keyJ) {
+    for (let external = 0; external < matrix.length; external++) {
+        for (let internal = 0; internal < matrix[external].length; internal++) {
+            parentEl.querySelector(`#${keyI}-${external}`).querySelector(`#${keyJ}-${internal}`)
+                .value = matrix[external][internal]
         }
-        matrix.push(row);
     }
-    return matrix;
 }
 
 btnGenerateMatrix.addEventListener('click', () => {
     resultBox.innerHTML = "";
-
-    const dimension = parseInt(lenghtMatrix.value);
-    createMatrix(dimension, resultBox)
-    const matrix = generateRandomMatrix(dimension, randomicNumbers.checked)
+    createMatrix(row.value, column.value, resultBox, "i", "j")
 
     resultBox.classList.add("div-parenteses")
-    const isRandom = randomicNumbers.checked;
-    if (isRandom == true) {
-        for (let i = 0; i < dimension; i++) {
-            for (let j = 0; j < dimension; j++) {
-                document.getElementById("result").querySelector(`#i-${i}`).querySelector(`#j-${j}`)
-                    .value = matrix[i][j]
-            }
-        }
-    }
 
-    const config = {
+    fetch("http://localhost:3000/vetor", {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(matrix)
-    }
-    console.log(JSON.stringify(matrix));
-    fetch('http://localhost:3000/transporta', config)
-        .then(result => result.json())
+        body: JSON.stringify({ i: row.value, j: column.value, isRandom: randomicNumbers.checked })
+    })
+        .then(response => response.json())
         .then(data => {
-            const transporta = document.getElementById("result-transporta")
-            transporta.innerHTML = ""
-            transporta.classList.add("div-parenteses")
-            transporta.classList.remove("d-none")
-            // const dimension = parseInt(lenghtMatrix.value);
-            // createMatrix(dimension, transporta)
-
-            // for (let i = 0; i < dimension; i++) {
-
-            // }
-
-            console.log(data)
+            fillMatrix(resultBox, data.vetor, "i", "j")
         })
-        .catch(err => console.log(err))
-
 })
