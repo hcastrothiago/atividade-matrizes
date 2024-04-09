@@ -59,7 +59,7 @@ btnGenerateMatrix.addEventListener('click', () => {
 })
 
 btnGerarTransporta.addEventListener('click', () => {
-    document.getElementById("arrow").classList.remove("d-none")
+    document.getElementById("icon").classList.remove("d-none")
     resultTransporta.innerHTML = "";
     resultTransporta.classList.add("div-parenteses")
     resultTransporta.classList.remove("d-none")
@@ -73,10 +73,6 @@ btnGerarTransporta.addEventListener('click', () => {
             const row = data.length;
             const column = data[0].length;
             createMatrix(row, column, resultTransporta, "ii", "jj")
-            // resultBox.classList.remove("div-parenteses")
-            // resultBox.classList.add("div-parenteses")
             fillMatrix(resultTransporta, data, "ii", "jj")
-            // resultTransporta.classList.remove("div-parenteses")
-            // resultTransporta.classList.add("div-parenteses")
         })
 })

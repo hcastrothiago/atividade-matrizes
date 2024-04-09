@@ -43,21 +43,24 @@ app.get('/transporta', (req, res) => {
     res.render('transporta')
 })
 
-app.post('/produto', async (req, res) => {
-    // const matriz1 = await req.body.matriz1;
-    // const matriz2 = await req.body.matriz2;
+app.get('/produto', (req, res) => {
+    res.render('produto')
+})
 
-    // try {
-    //     const response = await axios.post(`${apiUrl}/produto`, {
-    //         matriz1: matriz1,
-    //         matriz2: matriz2
-    //     });
-    //     console.log('Produto das matrizes:', response.data.resultado);
-    //     res.status(200).json(response.data.resultado)
-    // } catch (error) {
-    //     console.error('Erro ao calcular o produto:', error);
-    // }
-    // res.render('produto')
+app.post('/produto', async (req, res) => {
+    const matriz1 = await req.body.matriz1;
+    const matriz2 = await req.body.matriz2;
+
+    try {
+        const response = await axios.post(`${apiUrl}/produto`, {
+            matriz1: matriz1['vetor'],
+            matriz2: matriz2['vetor']
+        });
+        console.log('Produto das matrizes:', response.data.resultado);
+        res.status(200).json(response.data.resultado)
+    } catch (error) {
+        console.error('Erro ao calcular o produto:', error);
+    }
 })
 
 app.post('/transporta', async (req, res) => {

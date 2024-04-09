@@ -13,6 +13,7 @@ def vetor():
         
         if isRandom:
             vetor_aleatorio = np.random.randint(0, 11, (i, j))
+            print(vetor_aleatorio)
             return jsonify({'vetor': vetor_aleatorio.tolist()}), 200
         else:
             vetor_zeros = np.zeros((i, j), dtype=int)
@@ -25,6 +26,7 @@ def vetor():
 @app.route('/produto', methods=['POST'])
 def produto():
     data = request.json
+    print("asdf")
     matriz1 = np.array(data.get('matriz1'))
     matriz2 = np.array(data.get('matriz2'))
 
@@ -38,13 +40,27 @@ def produto():
 @app.route('/transporta', methods=['POST'])
 def transporta():
     data = request.json
-    # print(data)
     matriz = np.array(data.get('matriz'))
-    print(data['matriz'])
 
     transportada = matriz.transpose()
     return jsonify({'transportada': transportada.tolist()}), 200
 
+@app.route('/quadrado-magico', methods=['POST'])
+def quadrado_magico():
+    data = request.json
+    matriz = np.array(data.get('matriz'))
+
+    if matriz.shape[0] != matriz.shape[1]:
+        return jsonify({'error': 'A matriz deve ser quadrada'}), 400
+
+    soma_linhas = np.sum(matriz, axis=1)
+    soma_colunas = np.sum(matriz, axis=0)
+    soma_diagonal = np.trace(matriz)
+
+    if not np.all(soma_linhas == soma_colunas) or not np.all(soma_linhas == soma_diagonal):
+        return jsonify({'error': 'A matriz não é um quadrado mágico'}), 400
+
+    return jsonify({'resultado': True}), 200
     
 if __name__ == '__main__':
     app.run(debug=True)

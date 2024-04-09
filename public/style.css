@@ -61,6 +61,7 @@
 }
 
 .div-parenteses {
+    align-items: center;
     padding: 15px;
     background-image: linear-gradient(#bebebe, #bebebe),
         linear-gradient(#bebebe, #bebebe),
@@ -75,7 +76,7 @@
     border-width: 0 3px;
 }
 
-#arrow{
+.icon {
     align-items: center;
     min-width: 35px;
     margin: auto 0;
