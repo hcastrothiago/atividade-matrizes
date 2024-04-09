@@ -43,6 +43,20 @@ app.get('/transporta', (req, res) => {
     res.render('transporta')
 })
 
+app.post('/transporta', async (req, res) => {
+    const matriz = await req.body;
+
+    console.log(matriz['matriz']['vetor']);
+    try {
+        const response = await axios.post(`${apiUrl}/transporta`, {
+            matriz: matriz['matriz']['vetor']
+        });
+        res.status(200).json(response.data.transportada)
+    } catch (error) {
+        console.error('Erro ao transportar a matriz:', error);
+    }
+})
+
 app.get('/produto', (req, res) => {
     res.render('produto')
 })
@@ -56,25 +70,28 @@ app.post('/produto', async (req, res) => {
             matriz1: matriz1['vetor'],
             matriz2: matriz2['vetor']
         });
-        console.log('Produto das matrizes:', response.data.resultado);
         res.status(200).json(response.data.resultado)
     } catch (error) {
         console.error('Erro ao calcular o produto:', error);
     }
 })
 
-app.post('/transporta', async (req, res) => {
-    const matriz = await req.body;
+app.get('/quadrado-magico', (req, res) =>{
+    res.render('quadrado-magico')
+})
 
-    console.log(matriz['matriz']['vetor']);
+app.post('/quadrado-magico', async (req, res) => {
+    const matriz = await req.body.matriz;
+    console.log(matriz);
     try {
-        const response = await axios.post(`${apiUrl}/transporta`, {
-            matriz: matriz['matriz']['vetor']
-        });
-        res.status(200).json(response.data.transportada)
+        const response = await axios.post(`${apiUrl}/quadrado-magico`, {
+            matriz: matriz
+        })
+        res.status(200).json(response.data)
     } catch (error) {
-        console.error('Erro ao transportar a matriz:', error);
+        res.status(200).json(error)
     }
+
 })
 
 // Inicia o servidor

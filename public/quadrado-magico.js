@@ -1,8 +1,8 @@
 const btnGenerateMatrix = document.getElementById("generate");
 const resultBox = document.getElementById('result')
-const row = document.getElementById('i'), column = document.getElementById('j')
-const btnGerarTransporta = document.getElementById("btn-gerar-transporta")
-const resultTransporta = document.getElementById("result-transporta")
+const row = document.getElementById('i'), column = document.getElementById('i')
+const calcularQuadradoMagico = document.getElementById("calcular-quadrado-magico")
+const resultTransporta = document.getElementById("result-quadrado-magico")
 const urlServer = "http://localhost:3000"
 const randomicNumbers = document.getElementById('random')
 
@@ -40,7 +40,6 @@ function fillMatrix(parentEl, matrix, keyI, keyJ) {
 let tempArr = []
 
 btnGenerateMatrix.addEventListener('click', () => {
-    // document.querySelector("icon").classList.add("d-none")
     resultTransporta.classList.remove("div-parenteses")
     resultTransporta.innerHTML = "";
 
@@ -57,26 +56,29 @@ btnGenerateMatrix.addEventListener('click', () => {
         .then(response => response.json())
         .then(data => {
             fillMatrix(resultBox, data.vetor, "i", "j")
-            btnGerarTransporta.classList.remove("d-none")
+            calcularQuadradoMagico.classList.remove("d-none")
             tempArr = data
         })
 })
 
-btnGerarTransporta.addEventListener('click', () => {
-    document.getElementById("icon").classList.remove("d-none")
-    resultTransporta.innerHTML = "";
-    resultTransporta.classList.add("div-parenteses")
-    resultTransporta.classList.remove("d-none")
+calcularQuadradoMagico.addEventListener('click', () => {
+    let arr = []
+    resultBox.childNodes.forEach((row, index) => {
+        arr.push([])
+        row.childNodes.forEach(box => {
+            arr[index].push(box.value)
+        })
+    })
 
-    fetch(`${urlServer}/transporta`, {
+    console.log(arr);
+    fetch(`${urlServer}/quadrado-magico`, {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ matriz: tempArr })
-    }).then(response => response.json())
+        body: JSON.stringify({ matriz: arr })
+    })
+        .then(response => response.json())
         .then(data => {
-            const row = data.length;
-            const column = data[0].length;
-            createMatrix(row, column, resultTransporta, "ii", "jj")
-            fillMatrix(resultTransporta, data, "ii", "jj")
+            alert(data.resultado)
         })
+        .catch(error => console.error(error))
 })
