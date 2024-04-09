@@ -9,17 +9,13 @@ def vetor():
         data = request.json
         i = int(data.get('i'))
         j = int(data.get('j'))
-        isRandom = data.get('isRandom', True)  # Removido o argumento de palavra-chave
+        isRandom = data.get('isRandom', True)
         
-        print(i, j, isRandom)
-
         if isRandom:
             vetor_aleatorio = np.random.randint(0, 11, (i, j))
-            print(vetor_aleatorio)
             return jsonify({'vetor': vetor_aleatorio.tolist()}), 200
         else:
             vetor_zeros = np.zeros((i, j), dtype=int)
-            print(vetor_zeros)
             return jsonify({'vetor': vetor_zeros.tolist()}), 200
     except Exception as e:
         print(f"Erro: {e}")
