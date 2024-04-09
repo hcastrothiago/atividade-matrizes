@@ -15,7 +15,7 @@ Disponível em https://nodejs.org/en/download e baixe de acordo com o seu sistem
 Pelo terminal do seu computador rode o código abaixo:
 ```cmd
 pip install numpy Flask
-npm install axios express
+npm install axios express express-handlebars
 ```
 
 ## RODANDO OS SERVIDORES
