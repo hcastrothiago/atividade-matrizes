@@ -46,7 +46,6 @@ app.get('/transporta', (req, res) => {
 app.post('/transporta', async (req, res) => {
     const matriz = await req.body;
 
-    console.log(matriz['matriz']['vetor']);
     try {
         const response = await axios.post(`${apiUrl}/transporta`, {
             matriz: matriz['matriz']['vetor']
@@ -76,13 +75,13 @@ app.post('/produto', async (req, res) => {
     }
 })
 
-app.get('/quadrado-magico', (req, res) =>{
+app.get('/quadrado-magico', (req, res) => {
     res.render('quadrado-magico')
 })
 
 app.post('/quadrado-magico', async (req, res) => {
     const matriz = await req.body.matriz;
-    console.log(matriz);
+
     try {
         const response = await axios.post(`${apiUrl}/quadrado-magico`, {
             matriz: matriz
@@ -91,7 +90,23 @@ app.post('/quadrado-magico', async (req, res) => {
     } catch (error) {
         res.status(200).json(error)
     }
+})
 
+app.get('/criar-quadrado-magico', (req, res) => {
+    res.render('criar-quadrado-magico')
+})
+
+app.post('/criar-quadrado-magico', async (req, res) => {
+    const size = await req.body.i;
+
+    try {
+        const response = await axios.post(`${apiUrl}/criar-quadrado-magico`, {
+            size: size
+        })
+        res.status(200).json(response.data)
+    } catch (error) {
+        res.status(200).json(error)
+    }
 })
 
 // Inicia o servidor

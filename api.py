@@ -42,6 +42,44 @@ def transporta():
     transportada = matriz.transpose()
     return jsonify({'transportada': transportada.tolist()}), 200
 
+def criar_vetor_quadrado_magico(n):
+    # Verifique se n é ímpar
+    if n % 2 == 0:
+        return None, "O tamanho do vetor deve ser ímpar"
+
+    # Crie uma matriz de zeros de tamanho n x n
+    matriz = np.zeros((n, n), dtype=int)
+
+    # Posição inicial (centro da primeira linha)
+    i, j = 0, n // 2
+
+    # Número a ser inserido
+    num = 1
+
+    while num <= n*n:
+        # Insira o número na posição atual
+        matriz[i, j] = num
+
+        # Calcule a próxima posição
+        novo_i, novo_j = (i - 1) % n, (j + 1) % n
+
+        # Se a próxima posição já estiver ocupada, mova-se para baixo
+        if matriz[novo_i, novo_j]:
+            i = (i + 1) % n
+        else:
+            i, j = novo_i, novo_j
+
+        num += 1
+
+    return matriz.tolist(), None
+
+@app.route('/vetor-quadrado-magico/<int:n>', methods=['GET'])
+def vetor_quadrado_magico(n):
+    vetor, error = criar_vetor_quadrado_magico(n)
+    if error:
+        return jsonify({"error": error}), 400
+    return jsonify({"vetor": vetor})
+
 @app.route('/quadrado-magico', methods=['POST'])
 def quadrado_magico():
     data = request.json

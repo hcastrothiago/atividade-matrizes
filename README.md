@@ -26,8 +26,8 @@ node --watch ./server.js
 ```
 
 ## TESTE AS ROTAS
-[transporta](./transporta)
+[transporta](http://localhost:3000/transporta)
 
-[produto](./produto)
+[produto](http://localhost:3000/produto)
 
-[quadrado-magico](./quadrado-magico)
+[quadrado-magico](http://localhost:3000/quadrado-magico)

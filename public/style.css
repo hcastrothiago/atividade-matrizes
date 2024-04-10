@@ -6,10 +6,22 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+h1{
+    margin-bottom: 45px;
+}
+
 .container {
     display: flex;
+    margin-top: 45px;
     flex-direction: column;
     align-items: center;
+}
+
+input[type="text"]{
+    min-height: 30px;
+    border-radius: 5px;
+    padding: 4px;
+    margin-inline: 2px;
 }
 
 .d-none {
@@ -81,4 +93,36 @@
     min-width: 35px;
     margin: auto 0;
     padding: 0 5px 0 5px;
+}
+
+.checkbox-button {
+    display: none; /* Esconde o checkbox padrão */
+}
+
+/* Estilo do botão */
+.checkbox-button + label {
+    text-transform: uppercase;
+    display: inline-block;
+    padding-block: 3px;
+    padding-inline: 30px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+
+    /* cursor: pointer; */
+    box-shadow: 2px 2px 2px 1px #9ca3af;
+    height: 30px;
+
+    background-color: white;
+    border: 1px solid #0d6efd;
+    color: black;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+/* Estilo quando o checkbox está marcado */
+.checkbox-button:checked + label {
+    background-color: #0d6efd;
+    color: white;
 }

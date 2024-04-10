@@ -1,20 +1,24 @@
 <div class="container">
-    <h1>Calculadora Produto de Matrizes</h1>
+    <h1>Calculadora Matrizes | Produto</h1>
 
     <div class="mb-3">
         <label for="lenght">Digite a dimensão dos vetores</label>
     </div>
 
     <div class="mb-3 row">
-        <input type="text" id="i" class="form-control" value="3">
-        <input type="text" id="j" class="form-control" value="3">
+        <input type="text" id="i" class="form-control">
+        &nbsp;x&nbsp;
+        <input type="text" id="j" class="form-control">
     </div>
-    
+
     <div class="btn-group">
         <button class="btn" id="generate">gerar</button>
-        <input type="checkbox" name="random" id="random" checked>
-        <label for="random">Gerar números aleatórios</label>
         <button class="btn" id="btn-gerar-produto">Calcular Produto</button>
+    </div>
+
+    <div>
+        <input class="checkbox-button" type="checkbox" name="random" id="random">
+        <label for="random">Gerar números aleatórios</label>
     </div>
 
     <div class="row">
