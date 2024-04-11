@@ -1,5 +1,5 @@
 # CALCULADORA MATRICIAL
-Atividade de algebra linear, como parte da nota NP1
+Atividade de ALGEBRA LINEAR, como parte da nota NP1
 
 Professor: Gilson Amorim César Filho
 
@@ -13,9 +13,14 @@ Disponível em https://nodejs.org/en/download e baixe de acordo com o seu sistem
 
 ### ⚙️ INSTALAÇÃO DAS DEPENDÊNCIAS 
 Pelo terminal do seu computador rode o código abaixo:
-```cmd
+```
 pip install numpy Flask
-npm install axios express express-handlebars
+```
+
+### INSTALAÇÃO DAS DEPENDÊNCIAS DO PROJETO
+Dentro da raiz do projeto execute o código a seguir:
+```
+npm install
 ```
 
 ### 🔥RODANDO OS SERVIDORES 
@@ -31,3 +36,7 @@ node --watch ./server.js
 [produto](http://localhost:3000/produto)
 
 [quadrado-magico](http://localhost:3000/quadrado-magico)
+
+## CURIOSIDADES
+- Matriz Tabuada A_1*9 * B_9*1 na rota Produto
+- Matriz Diagonal Secundária para alternar as linhas da matriz

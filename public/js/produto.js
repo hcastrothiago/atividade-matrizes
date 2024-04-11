@@ -10,8 +10,25 @@ const randomicNumbers = document.getElementById('random')
 let tempArr1 = []
 let tempArr2 = []
 
+btnGenerateMatrix.setAttribute('style', 'cursor: not-allowed;')
+const forms = document.querySelectorAll('.form-control')
+
+forms.forEach(input => {
+    input.addEventListener('input', () => {
+        const todosPreenchidos = [...forms].every(input => input.value.trim() !== '');
+
+        if (todosPreenchidos) {
+            btnGenerateMatrix.removeAttribute('disabled');
+        } else {
+            btnGenerateMatrix.setAttribute('disabled', 'disabled');
+            btnGenerateMatrix.removeAttribute('style', 'cursor: not-allowed;')
+        }
+    });
+});
+
 btnGenerateMatrix.addEventListener('click', () => {
-    //clean
+    btnGerarProduto.classList.remove("d-none")
+    //Limpa o vetor no começo caso esteja preenchido
     resultProduto.innerHTML = "";
     resultProduto.classList.remove("div-parenteses")
     resultProduto.classList.add("d-none")
@@ -24,7 +41,12 @@ btnGenerateMatrix.addEventListener('click', () => {
     createMatrix(column.value, row.value, matriz2, "m", "n")
     matriz2.classList.add("div-parenteses")
 
-    document.querySelectorAll(".icon").forEach(el => el?.classList.remove("d-none"))
+    //pega somente o primeiro ícone
+    document.querySelector(".icon")
+        .classList.remove("d-none")
+    document.querySelector(".icon")
+        .classList.add("d-flex")
+
 
     //Matriz1
     fetch(`${urlServer}/vetor`, {
@@ -55,6 +77,28 @@ btnGerarProduto.addEventListener('click', () => {
     resultProduto.innerHTML = "";
     resultProduto.classList.add("div-parenteses")
     resultProduto.classList.remove("d-none")
+
+    document.querySelectorAll(".icon").forEach(el => {
+        el?.classList.remove("d-none")
+        el.classList.add("d-flex")
+    })
+
+    tempArr1 = { vetor: [] }
+    tempArr2 = { vetor: [] }
+
+    matriz1.childNodes.forEach((row, index) => {
+        tempArr1.vetor.push([])
+        row.childNodes.forEach(box => {
+            tempArr1.vetor[index].push(Number(box.value))
+        })
+    })
+
+    matriz2.childNodes.forEach((row, index) => {
+        tempArr2.vetor.push([])
+        row.childNodes.forEach(box => {
+            tempArr2.vetor[index].push(Number(box.value))
+        })
+    })
 
     //Produto
     fetch(`${urlServer}/produto`, {

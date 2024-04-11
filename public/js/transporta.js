@@ -41,9 +41,11 @@ btnGerarTransporta.addEventListener('click', () => {
         })
     })
 
-    console.log(arr, tempArr);
+    document.querySelectorAll(".icon").forEach(el => {
+        el?.classList.remove("d-none")
+        el.classList.add("d-flex")
+    })
 
-    document.getElementById("icon").classList.remove("d-none")
     resultTransporta.innerHTML = "";
     resultTransporta.classList.add("div-parenteses")
     resultTransporta.classList.remove("d-none")

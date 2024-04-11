@@ -9,6 +9,7 @@ function createMatrix(row, column, parentEl, keyI, keyJ, disabled = false) {
 
         for (let j = 0; j < column; j++) {
             const box = document.createElement('input')
+            box.setAttribute("type", "number")
             disabled == true ? box.setAttribute("disabled", true) : ""
             box.classList.add('box')
 

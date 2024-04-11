@@ -6,14 +6,14 @@
     </div>
 
     <div class="mb-3 row">
-        <input type="text" id="i" class="form-control">
+        <input type="number" id="i" class="form-control">
         &nbsp;x&nbsp;
-        <input type="text" id="j" class="form-control">
+        <input type="number" id="j" class="form-control">
     </div>
 
     <div class="btn-group">
-        <button class="btn" id="generate">gerar</button>
-        <button class="btn" id="btn-gerar-produto">Calcular Produto</button>
+        <button class="btn" id="generate" disabled>gerar matriz</button>
+        <button class="btn d-none" id="btn-gerar-produto">Calcular Produto</button>
     </div>
 
     <div>
@@ -24,14 +24,14 @@
     <div class="row">
         <div class="mb-3 mt-3" id="matriz1"></div>
         <div class="d-none icon">
-            <img src="./plus.svg" alt="flecha">
+            <img src="./img/plus.svg" alt="flecha">
         </div>
         <div class="mb-3 mt-3" id="matriz2"></div>
         <div class="d-none icon">
-            <img src="./equals.svg" alt="igual">
+            <img src="./img/equals.svg" alt="igual" style="font-size: 15px;">
         </div>
         <div class="mb-3 mt-3 d-none" id="result-produto"></div>
     </div>
 </div>
 
-<script src="./produto.js"></script>
+<script src="./js/produto.js"></script>

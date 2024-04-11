@@ -3,6 +3,52 @@ const axios = require('axios');
 const handlebars = require('express-handlebars');
 const app = express();
 const path = require('path');
+const fs = require('fs');
+const showdown = require('showdown');
+const converter = new showdown.Converter({ moreStyling: true })
+const { exec } = require('child_process');
+
+const htmlToRender = content => `<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        pre{
+            background-color: #f8f8f8;
+            border: 1px solid #dfdfdf;
+            max-width: 75%;
+        }
+        .container {
+            padding-left: 150px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        ${content}
+    </div>
+</body>
+</html>`
+
+//Renderiza o README.md em HTML e salva no arquivo index.html na pasta public.
+fs.readFile('README.md', (err, data) => {
+    if (err) {
+        console.error('Erro ao ler o arquivo:', err);
+        return;
+    }
+    const text = data.toString()
+    const html = htmlToRender(converter.makeHtml(text))
+
+    fs.writeFile('./public/index.html', html, (err) => {
+        if (err) {
+            console.error('Erro ao escrever no arquivo:', err);
+        } else {
+            console.log('Arquivo HTML salvo com sucesso');
+        }
+    })
+})
 
 //handlebars
 app.engine('handlebars', handlebars.engine());
@@ -108,6 +154,19 @@ app.post('/criar-quadrado-magico', async (req, res) => {
         res.status(200).json(error)
     }
 })
+
+// // Executa a api
+// const comando = 'npm run api';
+
+// // Executar o comando
+// exec(comando, (erro, stdout, stderr) => {
+//   if (erro) {
+//     console.error(`Erro ao executar o comando: ${erro}`);
+//     return;
+//   }
+//   console.log(`Saída do comando: ${stdout}`);
+//   console.error(`Erros do comando: ${stderr}`);
+// });
 
 // Inicia o servidor
 app.listen(PORT, () => {

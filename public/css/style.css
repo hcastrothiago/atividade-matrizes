@@ -6,7 +6,19 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
-h1{
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+h1 {
     margin-bottom: 45px;
 }
 
@@ -17,7 +29,7 @@ h1{
     align-items: center;
 }
 
-input[type="text"]{
+input[type="number"]:not(.box) {
     min-height: 30px;
     border-radius: 5px;
     padding: 4px;
@@ -75,32 +87,36 @@ input[type="text"]{
 
 .div-parenteses {
     padding: 15px;
-    background-image: linear-gradient(#bebebe, #bebebe),
-        linear-gradient(#bebebe, #bebebe),
-        linear-gradient(#bebebe, #bebebe),
-        linear-gradient(#bebebe, #bebebe);
+    background-image: linear-gradient(#0d6efd, #0d6efd),
+        linear-gradient(#0d6efd, #0d6efd),
+        linear-gradient(#0d6efd, #0d6efd),
+        linear-gradient(#0d6efd, #0d6efd);
 
     background-repeat: no-repeat;
     background-size: 8px 3px;
     background-position: top left, top right, bottom left, bottom right;
 
-    border: solid #bebebe;
+    border: solid #0d6efd;
     border-width: 0 3px;
 }
 
-.icon {
+.icon>img {
     align-items: center;
-    min-width: 35px;
+    justify-content: center;
+    width: 20px;
     margin: auto 0;
-    padding: 0 5px 0 5px;
+    padding-inline: 5px;
+}
+
+.d-flex {
+    display: flex;
 }
 
 .checkbox-button {
-    display: none; /* Esconde o checkbox padrão */
+    display: none;
 }
 
-/* Estilo do botão */
-.checkbox-button + label {
+.checkbox-button+label {
     text-transform: uppercase;
     display: inline-block;
     padding-block: 3px;
@@ -122,7 +138,7 @@ input[type="text"]{
 }
 
 /* Estilo quando o checkbox está marcado */
-.checkbox-button:checked + label {
+.checkbox-button:checked+label {
     background-color: #0d6efd;
     color: white;
 }
