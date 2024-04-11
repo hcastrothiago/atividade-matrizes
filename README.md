@@ -11,13 +11,13 @@ Disponível em https://www.python.org/downloads/ e baixe de acordo com seu siste
 ### 🧊 INSTALAÇÃO DO NODE 
 Disponível em https://nodejs.org/en/download e baixe de acordo com o seu sistema operacional
 
-### ⚙️ INSTALAÇÃO DAS DEPENDÊNCIAS 
+### ⚙️ INSTALAÇÃO DAS DEPENDÊNCIAS DA API
 Pelo terminal do seu computador rode o código abaixo:
 ```
 pip install numpy Flask
 ```
 
-### INSTALAÇÃO DAS DEPENDÊNCIAS DO PROJETO
+### INSTALAÇÃO DAS DEPENDÊNCIAS DO SERVIDOR
 Dentro da raiz do projeto execute o código a seguir:
 ```
 npm install
