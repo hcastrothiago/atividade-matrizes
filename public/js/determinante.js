@@ -46,7 +46,10 @@ calcularDeterminante.addEventListener('click', () => {
     })
         .then(response => response.json())
         .then(data => {
-            alert(`A determinante da Matriz é ${data.determinante}`)
+            const message = !data.determinante
+                ? "A matriz está vazia"
+                : "A determinante é " + data.determinante;
+            toastr["info"](`${message}`, "Resultado")
         })
         .catch(error => console.error(error))
 })

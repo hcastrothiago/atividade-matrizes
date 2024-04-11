@@ -30,12 +30,20 @@ python ./product.py
 node --watch ./server.js
 ```
 
+### SOBRE O PROJETO
+Tecnologias utilizadas: 
+- Front End: html, css, javascript vanilla;
+- Back End: Node.js, Handlebars, Express;
+- Servidor: Flask, NumPy.
+
 ## TESTE AS ROTAS
 [transporta](http://localhost:3000/transporta)
 
 [produto](http://localhost:3000/produto)
 
 [quadrado-magico](http://localhost:3000/quadrado-magico)
+
+[determinante](http://localhost:3000/determinante)
 
 ## CURIOSIDADES
 - Matriz Tabuada A_1*9 * B_9*1 na rota Produto

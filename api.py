@@ -74,60 +74,53 @@ def magic(n):
     return jsonify({"vetor": vetor})
 
 @app.route('/quadrado-magico', methods=['POST'])
+@app.route('/quadrado-magico', methods=['POST'])
 def quadrado_magico():
+    # Rota para verificar se uma matriz é um quadrado mágico
     data = request.json
-    print("JSON recebido:", data)
+    matriz = data.get('matriz')
 
-    matriz = data.get('matriz', [])
-    
     if matriz is None:
-        print("Matriz não encontrada ou é None")
-        return jsonify({'error': 'A chave "matriz" não foi encontrada ou seu valor é None'}), 400
+        return {'error': 'A chave "matriz" não foi encontrada ou seu valor é None'}, 400
 
     # Converter a matriz de strings para números inteiros
     matriz_np = np.array(matriz, dtype=int)
-    print("Matriz criada:", matriz_np)
+
+    n = len(matriz_np)
 
     # Verificar se matriz é uma matriz 2D e não está vazia
-    if len(matriz_np.shape) != 2 or matriz_np.shape[0] != matriz_np.shape[1] or matriz_np.size == 0:
-        print(f"Shape: {matriz_np.shape}, Size: {matriz_np.size}")
-        return jsonify({'error': 'A matriz deve ser quadrada e não vazia'}), 400
+    if len(matriz_np.shape) != 2 or matriz_np.shape[0] != matriz_np.shape[1] or n == 0:
+        return {'error': 'A matriz deve ser quadrada e não vazia'}, 400
+
+    # Calcula a soma esperada
+    soma_esperada = n * (n**2 + 1) // 2
 
     soma_linhas = np.sum(matriz_np, axis=1)
     soma_colunas = np.sum(matriz_np, axis=0)
     soma_diagonal_principal = np.trace(matriz_np)
     soma_diagonal_secundaria = np.trace(np.flip(matriz_np, axis=1))
-    
-    # debugs
-    print(f"Soma das linhas: {soma_linhas}")
-    print(f"Soma das colunas: {soma_colunas}")
-    print(f"Soma da diagonal principal: {soma_diagonal_principal}")
-    print(f"Soma da diagonal secundária: {soma_diagonal_secundaria}")
 
     if not np.all(soma_linhas == soma_colunas) or \
        not soma_linhas[0] == soma_diagonal_principal or \
-       not soma_linhas[0] == soma_diagonal_secundaria:
-        return jsonify({'resultado': 'A matriz não é um quadrado mágico'}), 200
+       not soma_linhas[0] == soma_diagonal_secundaria or \
+       not np.all(soma_linhas == soma_esperada):
+        return {'resultado': 'A matriz não é um quadrado mágico'}, 200
     else:
-        return jsonify({'resultado': 'A matriz é um quadrado mágico'}), 200
+        return {'resultado': 'A matriz é um quadrado mágico'}, 200
 
-   
 
 @app.route('/determinante', methods=['POST'])
 def determinante():
     data = request.json
     matriz = np.array(data.get('vetor'))
-    print("Matriz recebida:", matriz)
-
 
     if len(matriz.shape) != 2 or matriz.shape[0] != matriz.shape[1]:
         return jsonify({'error': 'A matriz deve ser quadrada'}), 200
 
-     # Verifica se todos os elementos da matriz são inteiros
     if np.all(np.equal(np.mod(matriz, 1), 0)):
         determinante = int(np.linalg.det(matriz))
     else:
-        determinante = round(np.linalg.det(matriz), 2)
+        determinante = round(np.linalg.det(matriz), 4)
 
     print("Determinante:", determinante)
     return jsonify({'determinante': determinante}), 200

@@ -39,7 +39,6 @@ calcularQuadradoMagico.addEventListener('click', () => {
         })
     })
 
-    console.log(arr);
     fetch(`${urlServer}/quadrado-magico`, {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
@@ -47,7 +46,10 @@ calcularQuadradoMagico.addEventListener('click', () => {
     })
         .then(response => response.json())
         .then(data => {
-            alert(data.resultado)
+            const message = !data.resultado
+                ? "A matriz está vazia ou não foi criada"
+                : data.resultado
+            toastr["info"](`${message}`, "Resultado")
         })
         .catch(error => console.error(error))
 })

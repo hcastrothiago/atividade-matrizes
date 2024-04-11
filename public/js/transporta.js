@@ -9,7 +9,11 @@ const randomicNumbers = document.getElementById('random')
 let tempArr = []
 
 btnGenerateMatrix.addEventListener('click', () => {
-    // document.querySelector("icon").classList.add("d-none")
+    document.querySelector(".icon")
+        ?.classList.add("d-none")
+        ?.classList.remove("d-flex")
+
+
     resultTransporta.classList.remove("div-parenteses")
     resultTransporta.innerHTML = "";
 
@@ -41,10 +45,10 @@ btnGerarTransporta.addEventListener('click', () => {
         })
     })
 
-    document.querySelectorAll(".icon").forEach(el => {
-        el?.classList.remove("d-none")
-        el.classList.add("d-flex")
-    })
+    document.querySelector(".icon")
+        ?.classList.remove("d-none")
+        ?.classList.add("d-flex")
+
 
     resultTransporta.innerHTML = "";
     resultTransporta.classList.add("div-parenteses")
@@ -56,7 +60,6 @@ btnGerarTransporta.addEventListener('click', () => {
         body: JSON.stringify({ matriz: { vetor: arr } })
     }).then(response => response.json())
         .then(data => {
-            console.log(data);
             const row = data?.length;
             const column = data[0].length;
             createMatrix(row, column, resultTransporta, "ii", "jj", true)
