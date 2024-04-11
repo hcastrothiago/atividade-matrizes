@@ -67,7 +67,7 @@ const PORT = process.env.PORT || 3000;
 const apiUrl = "http://127.0.0.1:5000"
 
 app.get('/', (req, res) => {
-    res.render('home')
+    res.render('home', { isHome: true })
 })
 
 app.post('/vetor', async (req, res) => {
@@ -155,33 +155,25 @@ app.post('/criar-quadrado-magico', async (req, res) => {
     }
 })
 
-// // Executa a api
-// const comando = 'npm run api';
+app.get('/determinante', (req, res) => {
+    res.render('determinante')
+})
 
-// // Executar o comando
-// exec(comando, (erro, stdout, stderr) => {
-//   if (erro) {
-//     console.error(`Erro ao executar o comando: ${erro}`);
-//     return;
-//   }
-//   console.log(`Saída do comando: ${stdout}`);
-//   console.error(`Erros do comando: ${stderr}`);
-// });
+app.post('/determinante', async (req, res) => {
+    const matriz = await req.body.matriz;
+
+    try {
+        const response = await axios.post(`${apiUrl}/determinante`, {
+            vetor: matriz
+        })
+
+        res.status(200).json(response.data)
+    } catch (error) {
+        res.status(200).json(error)
+    }
+})
 
 // Inicia o servidor
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
 });
-
-// // Função para enviar a solicitação POST para a rota 'produto'
-// async function produto() {
-//     try {
-//         const response = await axios.post(`${apiUrl}/produto`, {
-//             matriz1: matriz1,
-//             matriz2: matriz2
-//         });
-//         console.log('Produto das matrizes:', response.data.resultado);
-//     } catch (error) {
-//         console.error('Erro ao calcular o produto:', error);
-//     }
-// }

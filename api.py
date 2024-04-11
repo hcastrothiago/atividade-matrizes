@@ -42,40 +42,33 @@ def transporta():
     transportada = matriz.transpose()
     return jsonify({'transportada': transportada.tolist()}), 200
 
-def criar_vetor_quadrado_magico(n):
-    # Verifique se n é ímpar
-    if n % 2 == 0:
-        return None, "O tamanho do vetor deve ser ímpar"
+def magic(n):
+    n = int(n)
+    if n < 3:
+        raise ValueError("Size must be at least 3")
+    if n % 2 == 1:
+        p = np.arange(1, n+1)
+        return n*np.mod(p[:, None] + p - (n+3)//2, n) + np.mod(p[:, None] + 2*p-2, n) + 1
+    elif n % 4 == 0:
+        J = np.mod(np.arange(1, n+1), 4) // 2
+        K = J[:, None] == J
+        M = np.arange(1, n*n+1, n)[:, None] + np.arange(n)
+        M[K] = n*n + 1 - M[K]
+    else:
+        p = n//2
+        M = magic(p)
+        M = np.block([[M, M+2*p*p], [M+3*p*p, M+p*p]])
+        i = np.arange(p)
+        k = (n-2)//4
+        j = np.concatenate((np.arange(k), np.arange(n-k+1, n)))
+        M[np.ix_(np.concatenate((i, i+p)), j)] = M[np.ix_(np.concatenate((i+p, i)), j)]
+        M[np.ix_([k, k+p], [0, k])] = M[np.ix_([k+p, k], [0, k])]
+    return M
 
-    # Crie uma matriz de zeros de tamanho n x n
-    matriz = np.zeros((n, n), dtype=int)
-
-    # Posição inicial (centro da primeira linha)
-    i, j = 0, n // 2
-
-    # Número a ser inserido
-    num = 1
-
-    while num <= n*n:
-        # Insira o número na posição atual
-        matriz[i, j] = num
-
-        # Calcule a próxima posição
-        novo_i, novo_j = (i - 1) % n, (j + 1) % n
-
-        # Se a próxima posição já estiver ocupada, mova-se para baixo
-        if matriz[novo_i, novo_j]:
-            i = (i + 1) % n
-        else:
-            i, j = novo_i, novo_j
-
-        num += 1
-
-    return matriz.tolist(), None
 
 @app.route('/vetor-quadrado-magico/<int:n>', methods=['GET'])
-def vetor_quadrado_magico(n):
-    vetor, error = criar_vetor_quadrado_magico(n)
+def magic(n):
+    vetor, error = magic(n)
     if error:
         return jsonify({"error": error}), 400
     return jsonify({"vetor": vetor})
@@ -123,12 +116,20 @@ def quadrado_magico():
 @app.route('/determinante', methods=['POST'])
 def determinante():
     data = request.json
-    matriz = np.array(data.get('matriz'))
+    matriz = np.array(data.get('vetor'))
+    print("Matriz recebida:", matriz)
+
 
     if len(matriz.shape) != 2 or matriz.shape[0] != matriz.shape[1]:
         return jsonify({'error': 'A matriz deve ser quadrada'}), 200
 
-    determinante = np.linalg.det(matriz)
+     # Verifica se todos os elementos da matriz são inteiros
+    if np.all(np.equal(np.mod(matriz, 1), 0)):
+        determinante = int(np.linalg.det(matriz))
+    else:
+        determinante = round(np.linalg.det(matriz), 2)
+
+    print("Determinante:", determinante)
     return jsonify({'determinante': determinante}), 200
     
 if __name__ == '__main__':

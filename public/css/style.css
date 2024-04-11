@@ -1,9 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: "Nunito", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -20,6 +28,7 @@ input[type=number] {
 
 h1 {
     margin-bottom: 45px;
+    font-size: 25px;
 }
 
 .container {
