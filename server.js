@@ -6,20 +6,39 @@ const path = require('path');
 const fs = require('fs');
 const showdown = require('showdown');
 const converter = new showdown.Converter({ moreStyling: true })
-const { exec } = require('child_process');
 
 const htmlToRender = content => `<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Calculadora de Matrizes | Heráclito Thiago</title>
+    <link rel="icon" href="./img/ico.png" type="image/png">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+        * {
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        body {
+            font-family: "Nunito", sans-serif;
+            font-optical-sizing: auto;
+            font-style: normal;
+        }
+
         pre{
             background-color: #f8f8f8;
             border: 1px solid #dfdfdf;
             max-width: 75%;
+            line-height: 1.5;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
         }
+
         .container {
             padding-left: 150px;
         }
@@ -121,7 +140,7 @@ app.post('/produto', async (req, res) => {
     }
 })
 
-app.get('/quadrado-magico', (req, res) => {
+app.get('/conferir-quadrado-magico', (req, res) => {
     res.render('quadrado-magico')
 })
 
@@ -143,11 +162,10 @@ app.get('/criar-quadrado-magico', (req, res) => {
 })
 
 app.post('/criar-quadrado-magico', async (req, res) => {
-    const size = await req.body.i;
-
+    const size = await req.body.dimension;
     try {
         const response = await axios.post(`${apiUrl}/criar-quadrado-magico`, {
-            size: size
+            dimension: size
         })
         res.status(200).json(response.data)
     } catch (error) {

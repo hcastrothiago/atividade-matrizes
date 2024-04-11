@@ -41,7 +41,9 @@ Tecnologias utilizadas:
 
 [produto](http://localhost:3000/produto)
 
-[quadrado-magico](http://localhost:3000/quadrado-magico)
+[conferir-quadrado-magico](http://localhost:3000/conferir-quadrado-magico)
+
+[criar-quadrado-magico](http://localhost:3000/criar-quadrado-magico)
 
 [determinante](http://localhost:3000/determinante)
 

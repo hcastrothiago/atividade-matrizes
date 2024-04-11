@@ -21,7 +21,6 @@ def vetor():
         print(f"Erro: {e}")
         return jsonify({'error': f"Erro interno do servidor: {e}"}), 500
 
-
 @app.route('/produto', methods=['POST'])
 def produto():
     data = request.json
@@ -65,18 +64,20 @@ def magic(n):
         M[np.ix_([k, k+p], [0, k])] = M[np.ix_([k+p, k], [0, k])]
     return M
 
+@app.route('/criar-quadrado-magico', methods=['POST'])
+def criar_quadrado_magico():
+    data = request.json
+    dimension = data.get('dimension')
+    try:
+        vetor = magic(dimension)
+    except ValueError as e:
+        return jsonify({"error": str(e)}), 400
+    print(vetor)
+    return jsonify({"vetor": vetor.tolist()})
 
-@app.route('/vetor-quadrado-magico/<int:n>', methods=['GET'])
-def magic(n):
-    vetor, error = magic(n)
-    if error:
-        return jsonify({"error": error}), 400
-    return jsonify({"vetor": vetor})
 
-@app.route('/quadrado-magico', methods=['POST'])
 @app.route('/quadrado-magico', methods=['POST'])
 def quadrado_magico():
-    # Rota para verificar se uma matriz é um quadrado mágico
     data = request.json
     matriz = data.get('matriz')
 

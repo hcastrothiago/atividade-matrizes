@@ -3,13 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Calculadora de Matrizes | Heráclito Thiago</title>
+    <link rel="icon" href="./img/ico.png" type="image/png">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+        * {
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        body {
+            font-family: "Nunito", sans-serif;
+            font-optical-sizing: auto;
+            font-style: normal;
+        }
+
         pre{
             background-color: #f8f8f8;
             border: 1px solid #dfdfdf;
             max-width: 75%;
+            line-height: 1.5;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
         }
+
         .container {
             padding-left: 150px;
         }
@@ -48,7 +68,8 @@ node --watch ./server.js
 <h2 id="testeasrotas">TESTE AS ROTAS</h2>
 <p><a href="http://localhost:3000/transporta">transporta</a></p>
 <p><a href="http://localhost:3000/produto">produto</a></p>
-<p><a href="http://localhost:3000/quadrado-magico">quadrado-magico</a></p>
+<p><a href="http://localhost:3000/conferir-quadrado-magico">conferir-quadrado-magico</a></p>
+<p><a href="http://localhost:3000/criar-quadrado-magico">criar-quadrado-magico</a></p>
 <p><a href="http://localhost:3000/determinante">determinante</a></p>
 <h2 id="curiosidades">CURIOSIDADES</h2>
 <ul>

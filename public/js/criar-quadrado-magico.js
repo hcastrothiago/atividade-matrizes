@@ -1,58 +1,51 @@
 const btnGenerateMatrix = document.getElementById("generate");
 const resultBox = document.getElementById('result')
 const row = document.getElementById('i'), column = document.getElementById('i')
-const calcularDeterminante = document.getElementById("btn-calcular-determinante")
+const calcularQuadradoMagico = document.getElementById("calcular-quadrado-magico")
 const resultTransporta = document.getElementById("result-quadrado-magico")
 const urlServer = "http://localhost:3000"
-const randomicNumbers = document.getElementById('random')
 
 let tempArr = []
 
 btnGenerateMatrix.addEventListener('click', () => {
-    calcularDeterminante
-        ?.classList.add("d-none")
-        ?.classList.remove("d-flex")
-
-    resultTransporta.classList.remove("div-parenteses")
-    resultTransporta.innerHTML = "";
-
     resultBox.innerHTML = "";
     createMatrix(row.value, column.value, resultBox, "i", "j")
 
     resultBox.classList.add("div-parenteses")
 
-    fetch(`${urlServer}/vetor`, {
+    fetch(`${urlServer}/criar-quadrado-magico`, {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ i: row.value, j: column.value, isRandom: randomicNumbers.checked })
+        body: JSON.stringify({ dimension: row.value })
     })
         .then(response => response.json())
         .then(data => {
+            console.log(data);
             fillMatrix(resultBox, data.vetor, "i", "j")
-            calcularDeterminante?.classList.remove("d-none")
+            calcularQuadradoMagico.classList.remove("d-none")
             tempArr = data
         })
 })
 
-calcularDeterminante.addEventListener('click', () => {
+calcularQuadradoMagico.addEventListener('click', () => {
     let arr = []
     resultBox.childNodes.forEach((row, index) => {
         arr.push([])
         row.childNodes.forEach(box => {
-            arr[index].push(Number(box.value))
+            arr[index].push(box.value)
         })
     })
 
-    fetch(`${urlServer}/determinante`, {
+    fetch(`${urlServer}/quadrado-magico`, {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ matriz: arr })
     })
         .then(response => response.json())
         .then(data => {
-            const message = !data.determinante
-                ? "A matriz está vazia"
-                : "A determinante é " + data.determinante;
+            const message = !data.resultado
+                ? "A matriz está vazia ou não foi criada"
+                : data.resultado
             toastr["info"](`${message}`, "Resultado")
         })
         .catch(error => console.error(error))
