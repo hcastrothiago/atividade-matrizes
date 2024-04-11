@@ -2,7 +2,7 @@
   "name": "algebra-linear",
   "version": "1.0.0",
   "description": "Atividade de algebra linear, como parte da nota NP1",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "server": "cls & node --watch server.js",
     "api": "cls & python ./api.py"
